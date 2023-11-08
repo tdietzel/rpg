@@ -25,6 +25,13 @@ describe("Warrior", () => {
         const warrior = new Warrior();
         expect(warrior.hasPotion()).toEqual(true);
     });
+
+    test("should create a function that uses a potion if the inventory includes one", () => {
+        const warrior = new Warrior();
+        warrior.usePotion();
+        expect(warrior.hasPotion()).toEqual(true);
+        expect(warrior.health).toEqual(250);
+    });
 });
 
 import {Mage} from "../src/characters.js"
