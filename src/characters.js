@@ -4,6 +4,7 @@ export class Warrior {
         this.attack = 30;
         this.strength = 50;
         this.intelligence = 10;
+        this.level = 1;
         this.inventory = [{sword:0}, {potion:50}];
     }
 
@@ -27,7 +28,6 @@ export class Warrior {
             return false;
         }
     }
-    
 }
 
 export class Mage {

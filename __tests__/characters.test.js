@@ -5,11 +5,12 @@ describe("Warrior", () => {
       warrior = new Warrior();
     })
 
-    test("should create a warrior object with health, attack, strength & intelligence", () => {
+    test("should create a warrior object with health, attack, strength, level, & intelligence", () => {
         expect(warrior.health).toEqual(200);
         expect(warrior.attack).toEqual(30);
         expect(warrior.strength).toEqual(50);
         expect(warrior.intelligence).toEqual(10);
+        expect(warrior.level).toEqual(1);
     });
 
     test("should create a starting inventory with a sword & potion", () => {
