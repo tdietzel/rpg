@@ -4,11 +4,15 @@ export class Warrior {
         this.attack = 30;
         this.strength = 50;
         this.intelligence = 10;
-        this.inventory = [{sword: 0}, {potion: 50}]
+        this.inventory = [{sword:0}, {potion:50}];
     }
 
     hit(recipient) {
         recipient.health = recipient.health - this.attack;
+    }
+
+    hasPotion() {
+        return this.inventory.some(item => "potion" in item);
     }
 }
 
@@ -18,6 +22,7 @@ export class Mage {
         this.attack = 50;
         this.strength = 35;
         this.intelligence = 20;
+        this.inventory = [{wand:0}, {potion:50}];
     }
 
     hit(recipient) {
