@@ -11,6 +11,16 @@ export class Warrior {
     // Hit
     hit(recipient) {
         recipient.health = recipient.health - this.attack;
+        this.hasKilled(recipient);
+    }
+
+    hasKilled(recipient) {
+        if (recipient.health <= 0) {
+            this.exp += 100;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     // Use potion

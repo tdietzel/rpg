@@ -26,6 +26,19 @@ describe("Warrior", () => {
         expect(mage.health).toEqual(120);
     });
 
+    test("should return true if the player being attacked is killed", () => {
+        const mage = new Mage();
+        warrior.attack = 160;
+        warrior.hit(mage);
+        expect(warrior.hasKilled(mage)).toEqual(true);
+    });
+
+    test("should return false if the player being attacked isn't killed", () => {
+        const mage = new Mage();
+        warrior.hit(mage);
+        expect(warrior.hasKilled(mage)).toEqual(false);
+    });
+
     // hasPotion
     test("should create a function that checks wether the inventory includes a potion or not", () => {
         expect(warrior.hasPotion()).toEqual(true);
