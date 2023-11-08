@@ -10,18 +10,24 @@ export class Warrior {
     hit(recipient) {
         recipient.health = recipient.health - this.attack;
     }
-    hasPotion() {
-        if (this.inventory.some(item => "potion" in item)) {
-            return true;
-        }
-    }
     usePotion() {
         if (this.hasPotion()) {
             const potionIndex = this.inventory.findIndex(item => "potion" in item);
             const potionValue = this.inventory[potionIndex].potion;
             this.health += potionValue;
+            this.inventory.splice(potionIndex, 1);
+        } else {
+            return false
         }
     }
+    hasPotion() {
+        if (this.inventory.some(item => "potion" in item)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
 }
 
 export class Mage {

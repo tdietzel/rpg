@@ -1,7 +1,11 @@
 import {Warrior} from "../src/characters.js"
 describe("Warrior", () => {
+    let warrior;
+    beforeEach(() => {
+      warrior = new Warrior();
+    })
+
     test("should create a warrior object with health, attack, strength & intelligence", () => {
-        const warrior = new Warrior();
         expect(warrior.health).toEqual(200);
         expect(warrior.attack).toEqual(30);
         expect(warrior.strength).toEqual(50);
@@ -9,28 +13,33 @@ describe("Warrior", () => {
     });
 
     test("should create a starting inventory with a sword & potion", () => {
-        const warrior = new Warrior();
         expect(warrior.inventory[0]).toEqual({sword:0})
         expect(warrior.inventory[1]).toEqual({potion:50})
     });
 
     test("should create a warrior hit function that effects recipients health based on attack", () => {
-        const warrior = new Warrior();
         const mage = new Mage();
         warrior.hit(mage);
         expect(mage.health).toEqual(120);
     });
 
     test("should create a function that checks wether the inventory includes a potion or not", () => {
-        const warrior = new Warrior();
         expect(warrior.hasPotion()).toEqual(true);
     });
 
     test("should create a function that uses a potion if the inventory includes one", () => {
-        const warrior = new Warrior();
         warrior.usePotion();
-        expect(warrior.hasPotion()).toEqual(true);
         expect(warrior.health).toEqual(250);
+    });
+
+    test("should return false if the inventory doesn't include a potion", () => {
+        warrior.inventory = [{ sword: 0 }];
+        expect(warrior.hasPotion()).toEqual(false);
+    });
+
+    test("should return the health if the inventory doesn't include a potion", () => {
+        warrior.inventory = [{ sword: 0 }];
+        expect(warrior.usePotion()).toEqual(false);
     });
 });
 
