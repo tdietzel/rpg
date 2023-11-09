@@ -24,7 +24,6 @@ export class Warrior {
             return false;
         }
     }
-
     // Use potion
     usePotion() {
         if (this.hasPotion()) {
@@ -43,7 +42,6 @@ export class Warrior {
             return false;
         }
     }
-
     // Check Level
     checkLevel() {
         if (this.exp < 1000) {
