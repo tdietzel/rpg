@@ -1,16 +1,18 @@
 import {Shop} from "../src/shop.js"
 import {Wizard} from "../src/PlayerTypes/wizard"
 
-// constructor
 describe("Shop", () => {
     let shop;
     beforeEach(() => {
         shop = new Shop();
     });
 
+    // constructor
     test("should create a shop object with available potions", () => {
         expect(shop.availablePotions.length).toEqual(1);
     });
+    
+    // buy potion
     test("should return true if you try to buy something with enough currency", () => {
         let wizard = new Wizard();
         expect(shop.buy(0, wizard)).toEqual(true);

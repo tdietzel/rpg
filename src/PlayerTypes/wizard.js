@@ -1,4 +1,5 @@
 import {playerManager} from "../playerManager";
+import {levelSystem} from "../levelingSystem";
 
 export class Wizard {
   constructor(){
@@ -55,16 +56,15 @@ export class Wizard {
   }
   // Check Level
   checkLevel() {
-    if (this.exp < 1000) {
-      this.level = 1;
-    } else if (this.exp >= 1000 && this.exp <= 1999) {
-      this.level = 2;
-    } else if (this.exp >= 2000 && this.exp <= 2999) {
-      this.level = 3;
-    } else if (this.exp >= 3000 && this.exp <= 3999) {
-      this.level = 4;
-    } else {
-      this.level = 5;
-    }
+    this.level = levelSystem.checkLevel(this.exp);
+    this.updateStats();
+  }
+
+  updateStats() {
+    const levelStats = levelSystem.getLevelStats(this.level);
+    this.health += levelStats.health;
+    this.attack += levelStats.attack;
+    this.strength += levelStats.strength;
+    this.intelligence += levelStats.intelligence;
   }
 }

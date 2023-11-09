@@ -1,3 +1,5 @@
+import {playerManager} from "../playerManager";
+
 export class Warrior {
   constructor(){
     this.health = 200;
@@ -25,6 +27,7 @@ export class Warrior {
   // +100exp per kill
   hasKilled(recipient) {
     if (recipient.health <= 0) {
+      playerManager.checkPlayerHealth();
       this.exp += 100;
       this.checkLevel();
       return true;

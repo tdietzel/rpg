@@ -63,7 +63,7 @@ describe("Warrior", () => {
         expect(warrior.exp).toEqual(0);
     });
 
-// display LEVELS
+    // display LEVELS
     //level 1
     test("should return level 1 if exp is < 1000", () => {
         const wizard = new Wizard();

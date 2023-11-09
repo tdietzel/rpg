@@ -3,6 +3,7 @@ export class Shop {
     this.availablePotions = [{potion:50, price:20}];
   }
 
+  // allows players to buy shop potions
   buy(item, player) {
     let playerBank = player.currency;
     item = this.availablePotions[item];
