@@ -8,7 +8,6 @@ export class Warrior {
         this.level = 1;
         this.inventory = [{sword:0}, {potion:50}];
     }
-
     // Hit
     hit(recipient) {
         recipient.health = recipient.health - this.attack;
