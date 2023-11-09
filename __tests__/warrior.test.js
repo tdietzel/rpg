@@ -1,5 +1,6 @@
 import {Wizard} from "../src/wizard.js"
 import {Warrior} from "../src/warrior.js"
+
 describe("Warrior", () => {
     let warrior;
     beforeEach(() => {
