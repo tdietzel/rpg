@@ -16,6 +16,7 @@ describe("Warrior", () => {
         expect(warrior.level).toEqual(1);
         expect(warrior.currency).toEqual(1000);
         expect(warrior.intelligence).toEqual(10);
+        expect(warrior.position).toEqual({"x": 0, "y": 0});
     });
     // handles starting inventory
     test("should create a starting inventory with a sword & potion", () => {

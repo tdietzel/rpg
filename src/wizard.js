@@ -10,6 +10,10 @@ export class Wizard {
     this.level = 1;
     this.currency = 1000;
     this.inventory = [{wand:0}, {potion:50}];
+    this.position = {
+      x: 0,
+      y: 0
+  }
   }
   // Hit
   hit(recipient) {

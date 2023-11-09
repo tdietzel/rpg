@@ -16,6 +16,7 @@ describe("Wizard", () => {
         expect(wizard.level).toEqual(1);
         expect(wizard.currency).toEqual(1000);
         expect(wizard.intelligence).toEqual(20);
+        expect(wizard.position).toEqual({"x": 0, "y": 0});
     });
     // handles starting inventory
     test("should create a starting inventory with a wand & potion", () => {

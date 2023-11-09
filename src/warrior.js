@@ -8,6 +8,10 @@ export class Warrior {
     this.level = 1;
     this.currency = 1000;
     this.inventory = [{sword:0}, {potion:50}];
+    this.position = {
+      x: 0,
+      y: 0
+  }
   }
   // Hit
   hit(recipient) {
