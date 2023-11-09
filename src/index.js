@@ -1,185 +1,114 @@
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
-import { Wizard } from "../src/PlayerTypes/wizard.js";
-import { Warrior } from "../src/PlayerTypes/warrior.js";
-import {PlayerManager} from "../src/playerManager";
-import {Shop} from "../src/shop.js"
+// import {Wizard} from "../src/PlayerTypes/wizard.js";
+// import { Warrior } from "../src/PlayerTypes/warrior.js";
+// import {PlayerManager} from "../src/playerManager";
+// import {Shop} from "../src/shop.js";
 
-// const wizardLevelElement = document.getElementById('wizard-level');
-// const wizardHealthElement = document.getElementById('wizard-health');
-// const wizardExpElement = document.getElementById('wizard-exp');
-// const wizardHitButton = document.getElementById('wizard-hit');
-// const wizardPotionButton = document.getElementById('wizard-potion');
+const canvas = document.querySelector('canvas');
+const c = canvas.getContext('2d');
 
-// const warriorLevelElement = document.getElementById('warrior-level');
-// const warriorHealthElement = document.getElementById('warrior-health');
-// const warriorExpElement = document.getElementById('warrior-exp');
-// const warriorHitButton = document.getElementById('warrior-hit');
-// const warriorPotionButton = document.getElementById('warrior-potion');
+canvas.width = 1024;
+canvas.height = 576;
 
-// const canvas = document.getElementById('game-canvas');
-// const context = canvas.getContext('2d');
+c.fillRect(0, 0, canvas.width, canvas.height);
 
-// // Create Wizard and Warrior instances
-// const wizard = new Wizard();
-// const warrior = new Warrior();
+const gravity = 0.2;
+class Sprite {
+  constructor({position, velocity}) {
+    this.position = position;
+    this.velocity = velocity;
+    this.height = 150;
+  }
 
-// // Character positions for animation
-// let wizardX = 50;
-// let warriorX = 150;
+  draw() {
+    c.fillStyle = 'red';
+    c.fillRect(this.position.x, this.position.y, 50, this.height);
+  }
 
-// // Drinking potion animation
-// let wizardDrinkingPotion = false;
-// let warriorDrinkingPotion = false;
+  update() {
+    this.draw();
 
-// // Function to draw characters on the canvas
-// function drawCharacters() {
-//   context.clearRect(0, 0, canvas.width, canvas.height);
+    this.position.x += this.velocity.x;
+    this.position.y += this.velocity.y;
 
-//   // Draw Wizard character
-//   context.fillStyle = 'blue';
-//   context.fillRect(wizardX, 100, 50, 50);
-//   context.fillStyle = 'yellow';
-//   context.fillRect(wizardX + 5, 80, 40, 30);
+    if(this.position.y + this.height + this.velocity.y >= canvas.height) {
+      this.velocity.y = 0;
+    } else {
+      this.velocity.y += gravity;
+    }
+  }
+}
 
-//   context.fillStyle = 'red';
-//   context.fillRect(warriorX, 100, 50, 50); // Draw the main body of the Warrior
+const player = new Sprite({
+  position: {
+    x: 0,
+    y: 0
+  },
+  velocity: {
+    x: 0,
+    y: 0
+  }
+});
 
-//   context.fillStyle = 'black';
-//   context.fillRect(warriorX - 20, 115, 20, 10); // A
+const enemy = new Sprite({
+  position: {
+    x: 400,
+    y: 100
+  },
+  velocity: {
+    x: 0,
+    y: 0
+  }
+});
 
-//   // Draw potion drinking animations
-//   if (wizardDrinkingPotion) {
-//     context.fillStyle = 'green';
-//     context.fillRect(wizardX + 15, 110, 20, 20);
-//   }
-//   if (warriorDrinkingPotion) {
-//     context.fillStyle = 'green';
-//     context.fillRect(warriorX + 15, 110, 20, 20);
-//   }
-// }
+const keys = {
+  a: {
+    pressed: false
+  },
+  d: {
+    pressed: false
+  }
+};
+let lastKey;
 
-// // Update UI with character information
-// function updateCharacterInfo() {
-//   wizardLevelElement.textContent = wizard.level;
-//   wizardHealthElement.textContent = wizard.health;
-//   wizardExpElement.textContent = wizard.exp;
+function animate() {
+  window.requestAnimationFrame(animate);
+  c.fillStyle = 'black';
+  c.fillRect(0, 0, canvas.width, canvas.height);
+  player.update();
+  enemy.update();
 
-//   warriorLevelElement.textContent = warrior.level;
-//   warriorHealthElement.textContent = warrior.health;
-//   warriorExpElement.textContent = warrior.exp;
-// }
+  player.velocity.x = 0;
+  if(keys.a.pressed && lastKey === 'a') {
+    player.velocity.x = -1;
+  } else if (keys.d.pressed && lastKey === 'd') {
+    player.velocity.x = 1;
+  }
+}
+animate();
 
-// // Function for character animations
-// function animateWizardHit() {
-//   // Move the Wizard during a hit animation
-//   let animationSteps = 5; // Number of animation steps
-//   const deltaX = 20; // Adjust the distance to move
+window.addEventListener('keydown', (e) => {
+  switch(e.key) {
+  case 'd':
+    keys.d.pressed = true;
+    lastKey = 'd';
+    break;
+  case 'a':
+    keys.a.pressed = true;
+    lastKey = 'a';
+    break;
+  }
+});
 
-//   function step() {
-//     if (animationSteps > 0) {
-//       wizardX += deltaX;
-//       drawCharacters();
-//       animationSteps--;
-//       requestAnimationFrame(step);
-//     } else {
-//       // Animation completed, return the Wizard to the initial position
-//       wizardX = 50; // Set the initial position
-//       drawCharacters();
-
-//       // Perform the actual hit logic here
-//       const recipient = warrior; // Assuming the recipient is the Warrior.
-//       const hasKilled = wizard.hit(recipient);
-//       updateCharacterInfo();
-
-//       if (hasKilled) {
-//         // Handle the logic when the Wizard kills the recipient (Warrior in this case).
-//       }
-//     }
-//   }
-
-//   step();
-// }
-
-// function animateWarriorHit() {
-//   // Move the Warrior during a hit animation
-//   let animationSteps = 5; // Number of animation steps
-//   const deltaX = 20; // Adjust the distance to move
-
-//   function step() {
-//     if (animationSteps > 0) {
-//       warriorX -= deltaX;
-//       drawCharacters();
-//       animationSteps--;
-//       requestAnimationFrame(step);
-//     } else {
-//       // Animation completed, return the Warrior to the initial position
-//       warriorX = 150; // Set the initial position
-//       drawCharacters();
-
-//       // Perform the actual hit logic here
-//       const recipient = wizard; // Assuming the recipient is the Wizard.
-//       const hasKilled = warrior.hit(recipient);
-//       updateCharacterInfo();
-
-//       if (hasKilled) {
-//         // Handle the logic when the Warrior kills the recipient (Wizard in this case).
-//       }
-//     }
-//   }
-
-//   step();
-// }
-
-// // Function for potion drinking animations
-// function animateWizardDrinkingPotion() {
-//   // Set the drinking potion flag to true
-//   wizardDrinkingPotion = true;
-//   drawCharacters();
-
-//   // Simulate a delay for the animation
-//   setTimeout(() => {
-//     // Reset the drinking potion flag
-//     wizardDrinkingPotion = false;
-//     drawCharacters();
-//   }, 1000); // Adjust the duration as needed
-// }
-
-// function animateWarriorDrinkingPotion() {
-//   // Set the drinking potion flag to true
-//   warriorDrinkingPotion = true;
-//   drawCharacters();
-
-//   // Simulate a delay for the animation
-//   setTimeout(() => {
-//     // Reset the drinking potion flag
-//     warriorDrinkingPotion = false;
-//     drawCharacters();
-//   }, 1000); // Adjust the duration as needed
-// }
-
-// // Add event listeners for character actions
-// wizardHitButton.addEventListener('click', () => {
-//   // Animate the Wizard's hit
-//   animateWizardHit();
-// });
-
-// warriorHitButton.addEventListener('click', () => {
-//   // Animate the Warrior's hit
-//   animateWarriorHit();
-// });
-
-// wizardPotionButton.addEventListener('click', () => {
-//   // Animate the Wizard drinking a potion
-//   animateWizardDrinkingPotion();
-// });
-
-// warriorPotionButton.addEventListener('click', () => {
-//   // Animate the Warrior drinking a potion
-//   animateWarriorDrinkingPotion();
-// });
-
-// // Initial UI update and drawing characters
-// updateCharacterInfo();
-// drawCharacters();
+window.addEventListener('keyup', (e) => {
+  switch(e.key) {
+  case 'd':
+    keys.d.pressed = false;
+    break;
+  case 'a':
+    keys.a.pressed = false;
+    break;
+  }
+});
