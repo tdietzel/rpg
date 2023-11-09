@@ -1,5 +1,5 @@
-import {Wizard} from "../src/wizard.js"
-import {Warrior} from "../src/warrior.js"
+import {Wizard} from "../src/PlayerTypes/wizard"
+import {Warrior} from "../src/PlayerTypes/warrior"
 
 describe("Warrior", () => {
     let warrior;

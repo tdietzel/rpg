@@ -1,8 +1,8 @@
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
-import { Wizard } from "../src/wizard.js";
-import { Warrior } from "../src/warrior.js";
+import { Wizard } from "../src/PlayerTypes/wizard.js";
+import { Warrior } from "../src/PlayerTypes/warrior.js";
 
 const wizardLevelElement = document.getElementById('wizard-level');
 const wizardHealthElement = document.getElementById('wizard-health');

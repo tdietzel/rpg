@@ -1,4 +1,4 @@
-import {killerBee} from "../src/killerBee";
+import {killerBee} from "../src/EnemyTypes/killerBee";
 
 describe("KillerBee", () => {
     // constructor

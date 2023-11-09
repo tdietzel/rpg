@@ -1,4 +1,4 @@
-import {playerManager} from "../src/playerManager";
+import {playerManager} from "../playerManager";
 
 export class Wizard {
   constructor(){
