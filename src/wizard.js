@@ -8,6 +8,7 @@ export class Wizard {
     this.intelligence = 20;
     this.exp = 0;
     this.level = 1;
+    this.currency = 1000;
     this.inventory = [{wand:0}, {potion:50}];
   }
   // Hit

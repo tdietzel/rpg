@@ -8,13 +8,14 @@ describe("Warrior", () => {
     })
 
     // constructor
-    test("should create a warrior object with health, attack, strength, exp, level & intelligence", () => {
+    test("should create a warrior object with health, attack, strength, exp, level, currency & intelligence", () => {
         expect(warrior.health).toEqual(200);
         expect(warrior.attack).toEqual(30);
         expect(warrior.strength).toEqual(50);
-        expect(warrior.intelligence).toEqual(10);
         expect(warrior.exp).toEqual(0);
         expect(warrior.level).toEqual(1);
+        expect(warrior.currency).toEqual(1000);
+        expect(warrior.intelligence).toEqual(10);
     });
     // handles starting inventory
     test("should create a starting inventory with a sword & potion", () => {

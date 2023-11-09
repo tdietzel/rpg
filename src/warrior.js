@@ -6,6 +6,7 @@ export class Warrior {
     this.intelligence = 10;
     this.exp = 0;
     this.level = 1;
+    this.currency = 1000;
     this.inventory = [{sword:0}, {potion:50}];
   }
   // Hit
