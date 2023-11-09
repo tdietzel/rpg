@@ -1,3 +1,5 @@
+import {playerManager} from "../src/playerManager";
+
 export class Wizard {
   constructor(){
     this.health = 150;
@@ -16,6 +18,7 @@ export class Wizard {
   // +100exp per kill
   hasKilled(recipient) {
     if (recipient.health <= 0) {
+      playerManager.checkPlayerHealth();
       this.exp += 100;
       this.checkLevel();
       return true;
