@@ -4,41 +4,70 @@ import './css/styles.css';
 import {Wizard} from "../src/wizard.js";
 import {Warrior} from "../src/warrior.js";
 
-// JavaScript code to handle UI interactions
-const warrior = new Warrior();
+// Your JavaScript code for character logic and interactions
+
+// Get references to the UI elements
+const wizardLevelElement = document.getElementById('wizard-level');
+const wizardHealthElement = document.getElementById('wizard-health');
+const wizardExpElement = document.getElementById('wizard-exp');
+const wizardHitButton = document.getElementById('wizard-hit');
+const wizardPotionButton = document.getElementById('wizard-potion');
+
+const warriorLevelElement = document.getElementById('warrior-level');
+const warriorHealthElement = document.getElementById('warrior-health');
+const warriorExpElement = document.getElementById('warrior-exp');
+const warriorHitButton = document.getElementById('warrior-hit');
+const warriorPotionButton = document.getElementById('warrior-potion');
+
+// Create Wizard and Warrior instances
 const wizard = new Wizard();
+const warrior = new Warrior();
 
-// Update the UI with initial values
-function updateUI() {
-  document.getElementById("warrior-level").textContent = warrior.level;
-  document.getElementById("warrior-health").textContent = warrior.health;
-  document.getElementById("warrior-exp").textContent = warrior.exp;
+// Update UI with character information
+function updateCharacterInfo() {
+  wizardLevelElement.textContent = wizard.level;
+  wizardHealthElement.textContent = wizard.health;
+  wizardExpElement.textContent = wizard.exp;
 
-  document.getElementById("wizard-level").textContent = wizard.level;
-  document.getElementById("wizard-health").textContent = wizard.health;
-  document.getElementById("wizard-exp").textContent = wizard.exp;
+  warriorLevelElement.textContent = warrior.level;
+  warriorHealthElement.textContent = warrior.health;
+  warriorExpElement.textContent = warrior.exp;
 }
 
-updateUI();
+// Add event listeners for character actions
+wizardHitButton.addEventListener('click', () => {
+  const recipient = warrior; // Assuming the recipient is the Warrior.
+  const hasKilled = wizard.hit(recipient);
+  updateCharacterInfo();
 
-// Event listeners for warrior actions
-document.getElementById("warrior-attack").addEventListener("click", () => {
-  warrior.hit(wizard);
-  updateUI();
+  if (hasKilled) {
+    // Handle the logic when the Wizard kills the recipient (Warrior in this case).
+  }
 });
 
-document.getElementById("warrior-use-potion").addEventListener("click", () => {
-  warrior.usePotion();
-  updateUI();
+wizardPotionButton.addEventListener('click', () => {
+  if (wizard.hasPotion()) {
+    wizard.usePotion();
+    updateCharacterInfo();
+  }
 });
 
-// Event listeners for wizard actions
-document.getElementById("wizard-attack").addEventListener("click", () => {
-  wizard.hit(warrior);
-  updateUI();
+warriorHitButton.addEventListener('click', () => {
+  const recipient = wizard; // Assuming the recipient is the Wizard.
+  const hasKilled = warrior.hit(recipient);
+  updateCharacterInfo();
+
+  if (hasKilled) {
+    // Handle the logic when the Warrior kills the recipient (Wizard in this case).
+  }
 });
 
-document.getElementById("wizard-use-potion").addEventListener("click", () => {
-  wizard.usePotion();
-  updateUI();
+warriorPotionButton.addEventListener('click', () => {
+  if (warrior.hasPotion()) {
+    warrior.usePotion();
+    updateCharacterInfo();
+  }
 });
+
+// Initial UI update
+updateCharacterInfo();
